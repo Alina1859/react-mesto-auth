@@ -1,0 +1,12 @@
+.authorization-form__input {
+  border: none;
+  border-bottom: 2px solid #CCCCCC;
+  background-color: #000000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #CCCCCC;
+  padding-bottom: 13px;
+  width: 100%;
+  outline: none;
+}

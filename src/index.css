@@ -1,0 +1,86 @@
+@import url(./vendor/normalize.css);
+@import url(./fonts/fonts.css);
+
+@import url(./blocks/root/root.css);
+
+@import url(./blocks/page/page.css);
+
+@import url(./blocks/header/header.css);
+
+@import url(./blocks/logo/logo.css);
+
+@import url(./blocks/content/content.css);
+
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile/__info-container/profile__info-container.css);
+@import url(./blocks/profile/__img/profile__img.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__name-container/profile__name-container.css);
+@import url(./blocks/profile/__name/profile__name.css);
+@import url(./blocks/profile/__description/profile__description.css);
+@import url(./blocks/profile/__edit-btn/profile__edit-btn.css);
+@import url(./blocks/profile/__add-btn/profile__add-btn.css);
+@import url(./blocks/profile/__info-avatar-btn/profile__info-avatar-btn.css);
+
+@import url(./blocks/elements/elements.css);
+@import url(./blocks/elements/__items/__items.css);
+
+@import url(./blocks/card/card.css);
+@import url(./blocks/card/__img/card__img.css);
+@import url(./blocks/card/__info-container/card__info-container.css);
+@import url(./blocks/card/__name/card__name.css);
+@import url(./blocks/card/__like-container/card__like-container.css);
+@import url(./blocks/card/__like-btn/card__like-btn.css);
+@import url(./blocks/card/__like-count/card__like-count.css);
+@import url(./blocks/card/__like-btn/_active/card__like-btn_active.css);
+@import url(./blocks/card/__trash-btn/card__trash-btn.css);
+
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/_modal/popup_modal_profile.css);
+@import url(./blocks/popup/_modal/popup_modal_place.css);
+@import url(./blocks/popup/_modal/popup_modal_image.css);
+@import url(./blocks/popup/__container-image/popup__container-image.css);
+@import url(./blocks/popup/__card-image/popup__card-image.css);
+@import url(./blocks/popup/__image-title/popup__image-title.css);
+@import url(./blocks/popup/__submit/popup__submit.css);
+@import url(./blocks/popup/__submit/_inactive/popup__submit_inactive.css);
+@import url(./blocks/popup/__close-btn/popup__close-btn.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
+
+@import url(./blocks/form/form.css);
+@import url(./blocks/form/__label/form__label.css);
+@import url(./blocks/form/__title/form__title.css);
+@import url(./blocks/form/__title/_approve-delete/form__title_approve-delete.css);
+@import url(./blocks/form/__field/form__field.css);
+@import url(./blocks/form/__input/form__input.css);
+@import url(./blocks/form/__input-error/form__input-error.css);
+@import url(./blocks/form/__input-error/_active/form__input-error_active.css);
+@import url(./blocks/form/__input/_profile/form__input-profile-name.css);
+@import url(./blocks/form/__input/_profile/form__input-profile-description.css);
+@import url(./blocks/form/__input/_place/form__input_place_name.css);
+@import url(./blocks/form/__input/_place/form__input_place_link.css);
+@import url(./blocks/form/__input/_type/form__input_type_error.css);
+@import url(./blocks/form/__input/_type/_active/form__input_type_error_active.css);
+@import url(./blocks/form/_modal/_profile/form_modal_profile.css);
+@import url(./blocks/form/_modal/_profile/form_modal_profile.css);
+
+@import url(./blocks/authorization/authorization.css);
+@import url(./blocks/authorization/__container/authorization__container.css);
+@import url(./blocks/authorization-form/authorization-form.css);
+@import url(./blocks/authorization-form/__field/authorization-form__field.css);
+@import url(./blocks/authorization-form/__title/authorization-form__title.css);
+@import url(./blocks/authorization-form/__label/authorization-form__label.css);
+@import url(./blocks/authorization-form/__input/authorization-form__input.css);
+@import url(./blocks/authorization-form/__btn-submit/authorization-form__btn-submit.css);
+@import url(./blocks/authorization/__sign-in-link/authorization__sign-in-link.css);
+
+
+
+
+
+
+

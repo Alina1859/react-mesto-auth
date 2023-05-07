@@ -1,0 +1,19 @@
+.logo {
+  padding-bottom: 41px;
+  background-image: url("../../icons/logo.svg");
+  width: 100%;
+  width: 142px;
+  height: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #000000;
+}
+
+@media screen and (max-width: 767px) {
+  .logo {
+    padding-bottom: 31.6px;
+    width: 103.74px;
+    height: 24.4px;
+    margin-left: 8px;
+  }
+}

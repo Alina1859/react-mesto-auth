@@ -1,0 +1,16 @@
+.card {
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+  max-width: 282px;
+  width: 100%;
+  min-height: 361px;
+  display: flex;
+  flex-direction: column;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  align-items: center;
+  background: #ffffff;
+  position: relative;
+}
