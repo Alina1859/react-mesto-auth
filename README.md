@@ -23,4 +23,4 @@
 * Проверить все зены катчи
 * сделать валидацию на емейл пароль
 
-[ССЫЛКА] (https://Alina1859.github.io/mesto-react/)
+[ССЫЛКА] (https://alina1859.github.io/react-mesto-auth/)
