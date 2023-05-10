@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import * as auth from '../auth.js';
+import {Link} from 'react-router-dom';
 
-export default function Login({onHandleLogin}) {
+
+export default function Authorisation({title, buttonTitle, onHandleSubmit}) {
+
   const [formValue, setFormValue] = useState({
     email: '',
-    password: ''
+    password: '',
   })
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -21,19 +20,9 @@ export default function Login({onHandleLogin}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formValue.email || !formValue.password) {
-      return;
-    }
-    auth.authorize(formValue.email, formValue.password)
-      .then((data) => {
-        if (data.token) {
-          setFormValue({email: '', password: ''});
-          onHandleLogin();
-          navigate('/', {replace: true});
-        }
-      })
-      .catch(err => console.log(err));
+    onHandleSubmit(formValue, setFormValue)
   }
+
 
   return (
     <div className="authorization">
@@ -44,7 +33,7 @@ export default function Login({onHandleLogin}) {
           onSubmit={handleSubmit}
         >
           <fieldset className="authorization-form__field">
-            <legend className="authorization-form__title">Вход</legend>
+            <legend className="authorization-form__title">{title}</legend>
           </fieldset>
           <label
             htmlFor="login-email-input"
@@ -77,9 +66,14 @@ export default function Login({onHandleLogin}) {
             />
           </label>
           <button type="submit" className="authorization-form__btn-submit">
-            Войти
+            {buttonTitle}
           </button>
         </form>
+        {title === "Регистрация" &&  (
+          <Link to="/sign-in" className="authorization__sign-in-link">
+            Уже зарегистрированы? Войти
+          </Link>)
+        }
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -9,10 +9,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import Register from './Register';
-import Login from './Login';
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
+import Authorisation from "./Authorisation";
 import * as auth from '../auth.js';
 
 function App() {
@@ -33,14 +32,47 @@ function App() {
 
   const navigate = useNavigate();
 
-  const onHandleLogin = () => {
+  const onHandleRegisterSubmit = (formValue) => {
+    const { email, password } = formValue;
+    auth.register(email, password)
+      .then((res) => {
+        navigate('/sign-in', {replace: true});
+        onSucessedRegister();
+        }
+      )
+      .catch(err => {
+        onError();
+        console.log(err)
+      })
+  }
+
+  const onHandleLoginSubmit = (formValue, setFormValue) => {
+    if (!formValue.email || !formValue.password) {
+      return;
+    }
+    auth.authorize(formValue.email, formValue.password)
+      .then((data) => {
+        if (data.token) {
+          setFormValue({email: '', password: ''});
+          onHandleLogin(formValue.email);
+          navigate('/', {replace: true});
+        }
+      })
+      .catch(err => {
+        onError()
+        console.log(err)
+      });
+  }
+
+  const onHandleLogin = (email) => {
     setIsLoggedIn(true);
-    setEmail(userData.email)
+    setEmail(email)
   }
 
   function onSignOut() {
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
+    setEmail('');
     navigate("/sign-in", {replace: true})
   }
 
@@ -225,24 +257,31 @@ function App() {
       <div className="page">
         <Header email={email} onSignOut={onSignOut}/>
         <Routes>
-          <Route exact path="/sign-up" element={<Register
-            onSucessedRegister={onSucessedRegister}
-            onError={onError}/>} />
-          <Route exact path="/sign-in" element={<Login onHandleLogin={onHandleLogin} />} />
+          <Route exact path="/sign-up" element={<Authorisation
+            title={"Регистрация"}
+            buttonTitle={"Зарегистрироваться"}
+            onHandleSubmit={onHandleRegisterSubmit}/>}
+          />
+          <Route exact path="/sign-in" element={<Authorisation
+            title={"Вход"}
+            buttonTitle={"Войти"}
+            onHandleSubmit={onHandleLoginSubmit} />}
+          />
           <Route exact path="/" element={
             <ProtectedRoute
-            exact path="/"
-            isloggedIn={isLoggedIn}
-            element={Main}
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddCard={handleAddCardClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            cards={cards}
+              exact path="/"
+              isloggedIn={isLoggedIn}
+              element={Main}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddCard={handleAddCardClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              cards={cards}
+            />}
           />
-          } />
+          <Route path="*" element={<Navigate to="/sign-up"/>}/>
         </Routes>
         <Footer />
 
@@ -273,7 +312,12 @@ function App() {
           onClose={closeAllPopups}
         />
 
-        <InfoTooltip title={tooltipTitle} tooltipIcon={tooltipIcon} isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} ></InfoTooltip>
+        <InfoTooltip
+          title={tooltipTitle}
+          tooltipIcon={tooltipIcon}
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

@@ -1,8 +1,8 @@
 {
-  "name": "mesto-react",
+  "name": "react-mesto-auth",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alina1859.github.io/react-mesto-auth/",
+  "homepage": "https://Alina1859.github.io/react-mesto-auth/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
