@@ -6,6 +6,9 @@ export default function Main({onEditAvatar, onEditProfile, onAddCard, onCardClic
 
   const currentUser = useContext(CurrentUserContext);
 
+  // let scroll = document.querySelector('.content');
+  //   scroll.scrollTop = 0;
+
   return (
     <main className="content">
       <section className="profile">

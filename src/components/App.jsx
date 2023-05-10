@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Switch, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -12,6 +12,8 @@ import AddPlacePopup from "./AddPlacePopup";
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
+import * as auth from '../auth.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -23,9 +25,35 @@ function App() {
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [tooltipTitle, setTooltipTitle] = useState('');
+  const [tooltipIcon, setTooltipIcon] = useState('');
+  const [email, setEmail] = useState('');
 
-  const handleLogin = () => {
+  const navigate = useNavigate();
+
+  const onHandleLogin = () => {
     setIsLoggedIn(true);
+    setEmail(userData.email)
+  }
+
+  function onSignOut() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    navigate("/sign-in", {replace: true})
+  }
+
+  function onSucessedRegister() {
+    setTooltipIcon("success")
+    setTooltipTitle('Вы успешно зарегистрировались!')
+    setIsInfoTooltipPopupOpen(true)
+  }
+
+  function onError() {
+    setTooltipIcon("error")
+    setTooltipTitle('Что-то пошло не так! Попробуйте ещё раз.')
+    setIsInfoTooltipPopupOpen(true)
   }
 
   const getUserDataApi = () => {
@@ -51,9 +79,36 @@ function App() {
   };
 
   useEffect(() => {
-    getUserDataApi();
-    getCardsApi();
-  }, []);
+    tokenCheck();
+  }, [])
+
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.getContent(jwt).then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          const userData = {
+            username: res.data._id,
+            email: res.data.email
+          }
+          setUserData(userData)
+          setEmail(userData.email)
+          navigate("/", {replace: true})
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getUserDataApi();
+      getCardsApi();
+    }
+  }, [isLoggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -114,6 +169,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setAddCardPopupOpen(false);
     setImagePopupOpen(false);
+    setIsInfoTooltipPopupOpen(false)
   }
 
   function handleUpdateUser({ name, about }) {
@@ -167,15 +223,17 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header email={email} onSignOut={onSignOut}/>
         <Routes>
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
-          <Route path="/" element={
+          <Route exact path="/sign-up" element={<Register
+            onSucessedRegister={onSucessedRegister}
+            onError={onError}/>} />
+          <Route exact path="/sign-in" element={<Login onHandleLogin={onHandleLogin} />} />
+          <Route exact path="/" element={
             <ProtectedRoute
-            path="/"
+            exact path="/"
             isloggedIn={isLoggedIn}
-            component={Main}
+            element={Main}
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddCard={handleAddCardClick}
@@ -214,6 +272,8 @@ function App() {
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
         />
+
+        <InfoTooltip title={tooltipTitle} tooltipIcon={tooltipIcon} isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} ></InfoTooltip>
       </div>
     </CurrentUserContext.Provider>
   );

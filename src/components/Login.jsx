@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import * as auth from '../auth.js';
 
-export default function Login(handleLogin) {
+export default function Login({onHandleLogin}) {
   const [formValue, setFormValue] = useState({
     email: '',
     password: ''
@@ -24,17 +24,17 @@ export default function Login(handleLogin) {
     if (!formValue.email || !formValue.password) {
       return;
     }
-
     auth.authorize(formValue.email, formValue.password)
       .then((data) => {
-    if (data.jwt) {
-    setFormValue({email: '', password: ''});
-    handleLogin();
-    navigate('/', {replace: true});
-}
+        if (data.token) {
+          setFormValue({email: '', password: ''});
+          onHandleLogin();
+          navigate('/', {replace: true});
+        }
       })
       .catch(err => console.log(err));
   }
+
   return (
     <div className="authorization">
       <div className="authorization__container">

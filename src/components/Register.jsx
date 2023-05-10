@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import * as auth from '../auth.js';
 
-export default function Register() {
+export default function Register({onSucessedRegister, onError}) {
 
   const [formValue, setFormValue] = useState({
     email: '',
@@ -24,10 +24,14 @@ export default function Register() {
     e.preventDefault();
       const { email, password } = formValue;
       auth.register(email, password).then((res) => {
-        console.log(res)
-        navigate('/sign-in', {replace: true});
+          navigate('/sign-in', {replace: true});
+          onSucessedRegister();
         }
-      );
+      )
+      .catch(err => {
+        onError();
+        console.log(err)
+      })
   }
 
   return (
@@ -36,6 +40,7 @@ export default function Register() {
         <form
           className="authorization-form authorization-form_register"
           name="register"
+          noValidate
           onSubmit={handleSubmit}
         >
           <fieldset className="authorization-form__field">
