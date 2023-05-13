@@ -1,0 +1,18 @@
+.navbar_active {
+}
+
+@media screen and (max-width: 767px) {
+  .navbar_active {
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 27px;
+    opacity: 1;
+    visibility: visible;
+    min-height: 142px;
+  }
+}

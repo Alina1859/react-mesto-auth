@@ -12,7 +12,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
 import Authorisation from "./Authorisation";
-import * as auth from '../auth.js';
+import * as auth from '../utils/auth.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);

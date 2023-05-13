@@ -1,0 +1,13 @@
+.hamburger__line {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .hamburger__line {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background-color: #FFFFFF;
+    transition: all 0.3s linear;
+  }
+}

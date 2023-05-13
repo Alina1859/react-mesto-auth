@@ -7,3 +7,11 @@
   color: #FFFFFF;
   margin-right: 24px;
 }
+
+@media screen and (max-width: 767px) {
+  .navbar__email {
+    margin-bottom: 18px;
+    margin-top: 12px;
+    margin-right: 0;
+  }
+}

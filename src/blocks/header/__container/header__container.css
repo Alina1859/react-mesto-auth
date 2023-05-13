@@ -1,0 +1,10 @@
+.header__container {
+}
+
+@media screen and (max-width: 767px) {
+  .header__container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
