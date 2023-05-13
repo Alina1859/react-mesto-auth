@@ -1,4 +1,5 @@
 .hamburger_active {
   width: 20px;
   height: 20px;
+  justify-content: space-around;
 }
