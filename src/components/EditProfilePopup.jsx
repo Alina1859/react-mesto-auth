@@ -1,23 +1,29 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import {useForm} from "../hooks/useForm";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoading}) {
   const currentUser = useContext(CurrentUserContext);
 
-  const {values, handleChange, setValues} = useForm({});
+  const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onUpdateUser({
-      name: values.name,
-      about: values.description
-    });
+    if (isValid) {
+      onUpdateUser({
+        name: values.name,
+        about: values.description
+      });
+    }
   };
 
   useEffect(() => {
+    if (!isOpen) {
+      resetForm();
+    }
+
     setValues({name: currentUser.name, description: currentUser.about});
   }, [currentUser, isOpen]);
 
@@ -42,11 +48,16 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadi
           minLength="2"
           maxLength="40"
           required
+          autocomplete="off"
         />
-        <span className="profile-name-input-error form__input-error"></span>
+        <span
+          className={`profile-name-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
+            {errors.name}
+        </span>
       </label>
       <label htmlFor="profile-description-input" className="form__label">
         <input
+          aria-labelledby="billing profile-description-input"
           type="text"
           name="description"
           value={(values.description === undefined || values.description === null) ? '' : values.description}
@@ -57,8 +68,12 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadi
           minLength="2"
           maxLength="200"
           required
+          autocomplete="off"
         />
-        <span className="profile-description-input-error form__input-error"></span>
+        <span
+          className={`profile-description-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
+            {errors.description}
+        </span>
       </label>
     </PopupWithForm>
   );

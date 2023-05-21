@@ -21,4 +21,4 @@ export function useFormAndValidation() {
   return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid };
 }
 // Далее импортируем этот хук, куда нужно и запускаем валидацию одной строчкой
-const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
+// const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()

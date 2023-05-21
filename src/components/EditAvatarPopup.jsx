@@ -7,9 +7,9 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoad
   function handleSubmit(e) {
     e.preventDefault();
 
-    onUpdateAvatar({
+    onUpdateAvatar ({
       avatar: avatarRef.current.value,
-    });
+    })
   };
 
   useEffect(() => {
@@ -34,8 +34,9 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoad
           className="form__input form__input_avatar_link"
           ref={avatarRef}
           required
+          autocomplete="off"
         />
-        <span className="avatar-link-input-error form__input-error"></span>
+        <span className="avatar-link-input-error form__input-error"> </span>
       </label>
     </PopupWithForm>
   );

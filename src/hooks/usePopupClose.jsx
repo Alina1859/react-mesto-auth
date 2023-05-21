@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export default function usePopupClose(isOpen, closePopup) {
+  const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
+
   useEffect(() => {
     if (!isOpen) return; // останавливаем действие эффекта, если попап закрыт
 

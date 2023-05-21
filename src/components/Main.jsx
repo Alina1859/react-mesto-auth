@@ -2,20 +2,21 @@ import React, { useContext } from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function Main({onEditAvatar, onEditProfile, onAddCard, onCardClick, onCardLike, cards, onCardDelete}) {
+export default function Main({
+  onEditAvatar, onEditProfile,
+  onAddCard, onCardClick, onCardLike,
+  cards, onConfirmCardId }) {
 
   const currentUser = useContext(CurrentUserContext);
 
-  // let scroll = document.querySelector('.content');
-  //   scroll.scrollTop = 0;
-
   return (
     <main className="content">
-      <section className="profile">
+      <section className="profile" aria-labelledby="profile">
         <div className="profile__info-container">
           <button
             className="profile__info-avatar-btn"
             onClick={onEditAvatar}
+            aria-label="Изменить аватар"
           >
             <img src={currentUser.avatar} className="profile__img" alt="Фото профиля" />
           </button>
@@ -26,6 +27,7 @@ export default function Main({onEditAvatar, onEditProfile, onAddCard, onCardClic
                 type="button"
                 className="profile__edit-btn"
                 onClick={onEditProfile}
+                aria-label="Изменить профиль"
               />
             </div>
             <p className="profile__description">{currentUser.about}</p>
@@ -35,10 +37,11 @@ export default function Main({onEditAvatar, onEditProfile, onAddCard, onCardClic
           type="button"
           className="profile__add-btn"
           onClick={onAddCard}
+          aria-label="Добавить карточку"
         />
       </section>
 
-      <section className="elements">
+      <section className="elements" aria-labelledby="elements">
         <ul className="elements__items">
           {cards.map((card, i) => (
             <Card
@@ -50,7 +53,7 @@ export default function Main({onEditAvatar, onEditProfile, onAddCard, onCardClic
               card={card}
               onCardClick={onCardClick}
               onCardLike={() => onCardLike(card)}
-              onCardDelete={onCardDelete}
+              onConfirmCardId={() => onConfirmCardId(card._id)}
             ></Card>
           ))}
         </ul>

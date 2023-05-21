@@ -18,6 +18,7 @@ export default function InfoTooltip({tooltipIcon, title, isOpen, onClose}) {
           type="button"
           className="popup__close-btn"
           onClick={onClose}
+          aria-label="Закрыть"
         />
       </div>
     </div>

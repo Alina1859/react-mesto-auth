@@ -11,5 +11,6 @@
 @media screen and (max-width: 767px) {
   .elements__items {
     gap: 20px 0px;
+    justify-content: center;
   }
 }

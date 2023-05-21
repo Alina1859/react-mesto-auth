@@ -13,6 +13,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
 import Authorisation from "./Authorisation";
 import * as auth from '../utils/auth.js';
+import PopupWithConfirmation from "./PopupWithConfirmation";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -29,8 +31,12 @@ function App() {
   const [tooltipTitle, setTooltipTitle] = useState('');
   const [tooltipIcon, setTooltipIcon] = useState('');
   const [email, setEmail] = useState('');
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [deletedCardId, setDeletedCardId] = useState('');
 
   const navigate = useNavigate();
+
+  const { resetForm } = useFormAndValidation()
 
   const onHandleRegisterSubmit = (formValue) => {
     const { email, password } = formValue;
@@ -168,15 +174,20 @@ function App() {
           });
   }
 
-  function handleCardDelete(card) {
+  function handleCardDelete(cardId) {
+    setIsLoading(true);
     api
-      .removeCard(card._id)
-      .then(() =>
-        setCards((state) => state.filter((item) => item._id !== card._id))
-      )
+      .removeCard(cardId)
+      .then(() => {
+        setCards((state) => state.filter((item) => item._id !== cardId))
+        closeAllPopups();
+      })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   function handleEditAvatarClick() {
@@ -196,12 +207,23 @@ function App() {
     setImagePopupOpen(true);
   }
 
+  function handleOnConfirmCardId(cardId) {
+    setIsConfirmPopupOpen(true);
+    setDeletedCardId(cardId);
+  }
+
+  function handleConfirmPopupClick(deletedCardId) {
+    handleCardDelete(deletedCardId);
+  }
+
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setAddCardPopupOpen(false);
     setImagePopupOpen(false);
-    setIsInfoTooltipPopupOpen(false)
+    setIsInfoTooltipPopupOpen(false);
+    setIsConfirmPopupOpen(false);
+    resetForm();
   }
 
   function handleUpdateUser({ name, about }) {
@@ -277,7 +299,7 @@ function App() {
               onAddCard={handleAddCardClick}
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onConfirmCardId={handleOnConfirmCardId}
               cards={cards}
             />}
           />
@@ -317,6 +339,13 @@ function App() {
           tooltipIcon={tooltipIcon}
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
+        />
+
+        <PopupWithConfirmation
+          isOpen={isConfirmPopupOpen}
+          onClose={closeAllPopups}
+          isLoading={isLoading}
+          onConfirmDelete={() => handleConfirmPopupClick(deletedCardId)}
         />
       </div>
     </CurrentUserContext.Provider>

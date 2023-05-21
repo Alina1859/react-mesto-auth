@@ -1,15 +1,20 @@
 .hamburger {
   display: none;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 30px;
+  width: 24px;
+  height: 21px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {
   .hamburger {
-    width: 24px;
-    height: 20px;
-    margin-right: 30px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
   }
 }

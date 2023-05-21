@@ -21,24 +21,19 @@ export default function Header({email, onSignOut}) {
         <header className="header">
           <div className={`navbar ${isHamburgerOpen ? "navbar_active" : " "}`}>
             <p className="navbar__email">{`${email}`}</p>
-            <button className="navbar__link navbar__link_btn_gray"
-            onClick={handleOnSignOut}>
-              Выйти
+            <button className="navbar__link navbar__link_btn_gray" aria-label="Выйти"
+              onClick={handleOnSignOut}>
+                Выйти
             </button>
           </div>
 
           <div className="header__container">
             <div className="logo"/>
 
-            <div className={`hamburger
+            <button type="button" aria-label="Меню" className={`hamburger
               ${isHamburgerOpen ? "hamburger_active" : ""}`} onClick={toggleHamburger}>
-              <div className={`hamburger__line hamburger__line_position_top
-                ${isHamburgerOpen ? "hamburger__line_active hamburger__line_position_top_active" : ""}`}></div>
-              <div className={`hamburger__line hamburger__line_position_middle
-                ${isHamburgerOpen ? "hamburger__line_active hamburger__line_position_middle_active" : ""}`}></div>
-              <div className={`hamburger__line hamburger__line_position_bottom
-              ${isHamburgerOpen ? "hamburger__line_active hamburger__line_position_bottom_active" : ""}`}></div>
-            </div>
+                <span className="hamburger__line"></span>
+            </button>
           </div>
         </header>
       )}
