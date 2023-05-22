@@ -44,9 +44,10 @@ export default function AddPlacePopup({ isOpen, onClose, onAddCard, isLoading })
           className="form__input form__input_place_name"
           minLength="2"
           maxLength="30"
-          value={(values.name === undefined || values.name === null) ? '' : values.name} onChange={handleChange}
+          value={(values.name === undefined || values.name === null) ? '' : values.name}
+          onChange={handleChange}
           required
-          autocomplete="off"
+          autoComplete="off"
         />
         <span
           className={`place-name-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
@@ -63,7 +64,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddCard, isLoading })
           className="form__input form__input_place_link"
           value={(values.link === undefined || values.link === null) ? '' : values.link} onChange={handleChange}
           required
-          autocomplete="off"
+          autoComplete="off"
         />
         <span
           className={`place-link-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>

@@ -57,7 +57,7 @@ export default function Authorisation({title, buttonTitle, onHandleSubmit}) {
               className="authorization-form__input authorization-form__input_login_email"
               required
               onChange={handleChange}
-              autocomplete="off"
+              autoComplete="off"
             />
             <span
               className={` form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
@@ -79,7 +79,7 @@ export default function Authorisation({title, buttonTitle, onHandleSubmit}) {
               maxLength="20"
               required
               onChange={handleChange}
-              autocomplete="off"
+              autoComplete="off"
             />
             <span
               className={` form__input-error ${isValid ? '' : 'form__input-error_active'}`}>

@@ -48,7 +48,7 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadi
           minLength="2"
           maxLength="40"
           required
-          autocomplete="off"
+          autoComplete="off"
         />
         <span
           className={`profile-name-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
@@ -68,7 +68,7 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadi
           minLength="2"
           maxLength="200"
           required
-          autocomplete="off"
+          autoComplete="off"
         />
         <span
           className={`profile-description-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>

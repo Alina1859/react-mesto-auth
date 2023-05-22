@@ -6,4 +6,5 @@
   color: #ff0000;
   margin-top: 5px;
   min-height: 30px;
+  pointer-events: none;
 }

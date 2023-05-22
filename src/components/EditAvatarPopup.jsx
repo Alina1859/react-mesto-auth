@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
   const avatarRef = useRef();
+
+  const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,10 +13,13 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoad
     onUpdateAvatar ({
       avatar: avatarRef.current.value,
     })
+
   };
 
   useEffect(() => {
     avatarRef.current.value = '';
+
+    setValues({avatar: ''});
   }, [isOpen]);
 
   return (
@@ -34,9 +40,13 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoad
           className="form__input form__input_avatar_link"
           ref={avatarRef}
           required
-          autocomplete="off"
+          autoComplete="off"
+          onChange={handleChange}
         />
-        <span className="avatar-link-input-error form__input-error"> </span>
+        <span
+          className={`atar-link-input-error form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
+            {errors.link}
+        </span>
       </label>
     </PopupWithForm>
   );
