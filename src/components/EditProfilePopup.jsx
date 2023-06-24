@@ -35,6 +35,7 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadi
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={isLoading? 'Сохранение...' : 'Сохранить'}
+      isLoading={isLoading}
     >
       <label htmlFor="profile-name-input" className="form__label">
         <input

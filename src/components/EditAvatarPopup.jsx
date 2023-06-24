@@ -30,6 +30,7 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoad
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={isLoading? 'Обновление...' : 'Обновить'}
+      isLoading={isLoading}
     >
       <label htmlFor="avatar-link-input" className="form__label">
         <input

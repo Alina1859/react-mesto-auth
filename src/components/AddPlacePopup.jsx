@@ -33,6 +33,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddCard, isLoading })
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={isLoading? 'Добавление...' : 'Добавить'}
+      isLoading={isLoading}
     >
       <label htmlFor="place-name-input" className="form__label">
         <input

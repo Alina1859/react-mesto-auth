@@ -1,6 +1,9 @@
 import usePopupClose from "../hooks/usePopupClose";
 
-export default function PopupWithForm({name, isOpen, title, onClose, children, onSubmit, buttonText, approveTitle}) {
+export default function PopupWithForm({
+  name, isOpen, title,
+  onClose, children, onSubmit,
+  buttonText, approveTitle, isLoading}) {
   usePopupClose(isOpen, onClose)
   return (
     <div className={`popup popup_modal_${name} ${isOpen ? "popup_opened" : ""}`}>
@@ -15,7 +18,12 @@ export default function PopupWithForm({name, isOpen, title, onClose, children, o
             <legend className={`form__title ${name === "confirm-delete" ? approveTitle : ""}`}>{`${title}`}</legend>
             {children}
           </fieldset>
-          <button type="submit" className="popup__submit" aria-label="Подтвердить">
+          <button
+            type="submit"
+            disabled={isLoading ? true : false}
+            className="popup__submit"
+            style={isLoading ? { cursor: "none", opacity: 0.3 } : { cursor: "pointer", opacity: 1 }}
+            aria-label="Подтвердить">
             {buttonText}
           </button>
         </form>

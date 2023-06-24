@@ -18,6 +18,7 @@ export default function PopupWithConfirmation({isOpen, onClose, isLoading, onCon
       onSubmit={handleSubmit}
       buttonText={isLoading ? 'Удаление...' : 'Удалить'}
       approveTitle={"form__title_approve-delete"}
+      isLoading={isLoading}
     >
     </PopupWithForm>
   );
